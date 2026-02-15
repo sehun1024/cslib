@@ -17,10 +17,15 @@ This section is for the alternative and more useful definition for the "locally 
 -/
 
 /-- Alternative Definitions for LC
-This function counts the actually looks for the binding variables
+For all bound variables, lc_at looks for the binding lambda is actually there.
+
+We can define M is a locally closed term if and only if
+
 ```
-  lc_at 0 M =M.LC
+  lc_at 0 M
 ```
+
+The equivalence of the definitions will be proven in this section.
 -/
 @[simp]
 def lc_at (k : ℕ) (M : Term Var):Prop :=
@@ -30,7 +35,7 @@ match M with
 | Term.app t₁ t₂ => lc_at k t₁ ∧ lc_at k t₂
 | Term.abs t => lc_at (k+1) t
 
-/-- This function counts the maximum number of the lambda that is enclosing variables. -/
+/-- depth counts the maximum number of the lambda that is enclosing variables. -/
 @[simp]
 def depth (M : Term Var) : ℕ :=
 match M with
