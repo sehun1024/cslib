@@ -94,7 +94,7 @@ theorem lcAt_open_fvar_iff_lcAt (M : Term Var) (x : Var) :
    lcAt 0 (M ^ (fvar x)) ↔ lcAt 1 M := lcAt_openRec_fvar_iff_lcAt M x 0
 
 /-- M is lcAt 0 if and only if M is locallly closed -/
-theorem lcAt_iff_LC (M : Term Var) [hF : HasFresh Var] : lcAt 0 M ↔ M.LC := by
+theorem lcAt_iff_LC (M : Term Var) [HasFresh Var] : lcAt 0 M ↔ M.LC := by
 induction M using LambdaCalculus.LocallyNameless.Untyped.Term.ind_on_depth with
   | h_abs =>
     constructor
