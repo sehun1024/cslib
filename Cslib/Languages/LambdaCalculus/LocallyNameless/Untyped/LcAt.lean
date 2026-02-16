@@ -15,7 +15,7 @@ public import Cslib.Languages.LambdaCalculus.LocallyNameless.Untyped.Properties
 Alternative Definitions for LC:
 
 This module defines `LcAt k M`, a more general definition of local closure. When k = 0, this is
-equivalent to `LC`, as shown in lcAt_iff_LC.
+equivalent to `LC`, as shown in `lcAt_iff_LC`.
 
 -/
 
