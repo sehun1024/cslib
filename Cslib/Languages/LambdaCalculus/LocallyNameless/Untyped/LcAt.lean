@@ -64,8 +64,8 @@ lemma depth_openRec_fvar_eq_depth (M : Term Var) (x : Var) (i : ℕ) :
   induction M generalizing i <;> grind
 
 /-- The depth of the lambda expression doesn't change by opening for some free variable. -/
-theorem depth_open_fvar_eq_depth (M : Term Var) (x : Var) :
-  depth (M ^ fvar x) = depth M := depth_openRec_fvar_eq_depth M x 0
+theorem depth_open_fvar_eq_depth (M : Term Var) (x : Var) : depth (M ^ fvar x) = depth M :=
+  depth_openRec_fvar_eq_depth M x 0
 
 /-- Opening for some free variable at i-th bound variable, increases the LcAt by 1. -/
 @[simp, scoped grind =]
@@ -74,8 +74,8 @@ theorem lcAt_openRec_fvar_iff_lcAt (M : Term Var) (x : Var) (i : ℕ) :
   induction M generalizing i <;> grind
 
 /-- Opening for some free variable is locally closed if and only if M is LcAt 1. -/
-theorem lcAt_open_fvar_iff_lcAt (M : Term Var) (x : Var) :
-   LcAt 0 (M ^ (fvar x)) ↔ LcAt 1 M := lcAt_openRec_fvar_iff_lcAt M x 0
+theorem lcAt_open_fvar_iff_lcAt (M : Term Var) (x : Var) : LcAt 0 (M ^ fvar x) ↔ LcAt 1 M :=
+  lcAt_openRec_fvar_iff_lcAt M x 0
 
 /-- M is LcAt 0 if and only if M is locallly closed. -/
 theorem lcAt_iff_LC (M : Term Var) [HasFresh Var] : LcAt 0 M ↔ M.LC := by
