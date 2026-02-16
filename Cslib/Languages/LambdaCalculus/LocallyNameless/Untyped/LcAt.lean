@@ -8,7 +8,7 @@ module
 
 public import Cslib.Languages.LambdaCalculus.LocallyNameless.Untyped.Properties
 
-public section
+@[expose] public section
 
 /-!
 
