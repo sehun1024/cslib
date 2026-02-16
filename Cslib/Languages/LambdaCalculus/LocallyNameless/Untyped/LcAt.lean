@@ -58,7 +58,7 @@ protected lemma ind_on_depth (P : Term Var → Prop) (bvar : ∀ i, P (bvar i)) 
 
 /-- The depth of the lambda expression doesn't change by opening at i-th bound variable
  for some free variable. -/
- @[simp, scoped grind .]
+ @[simp, scoped grind =]
 lemma depth_openRec_fvar_eq_depth (M : Term Var) (x : Var) (i : ℕ) :
     (M⟦i ↝ fvar x⟧).depth = M.depth := by
   induction M generalizing i <;> grind
@@ -68,7 +68,7 @@ theorem depth_open_fvar_eq_depth (M : Term Var) (x : Var) :
   depth (M ^ fvar x) = depth M := depth_openRec_fvar_eq_depth M x 0
 
 /-- Opening for some free variable at i-th bound variable, increases the LcAt by 1. -/
-@[simp, scoped grind .]
+@[simp, scoped grind =]
 theorem lcAt_openRec_fvar_iff_lcAt (M : Term Var) (x : Var) (i : ℕ) :
     LcAt i (M⟦i ↝ fvar x⟧) ↔ LcAt (i+1) M := by
   induction M generalizing i <;> grind
