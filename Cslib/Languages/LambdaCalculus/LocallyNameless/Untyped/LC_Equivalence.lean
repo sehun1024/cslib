@@ -39,7 +39,7 @@ def lcAt (k : ℕ) : Term Var → Prop
 | app t₁ t₂ => lcAt k t₁ ∧ lcAt k t₂
 | abs t => lcAt (k+1) t
 
-/-- depth counts the maximum number of the lambda that is enclosing variables. -/
+/-- depth counts the maximum number of the lambdas that are enclosing variables. -/
 @[simp, scoped grind =]
 def depth : Term Var → ℕ
 | bvar _ => 0
