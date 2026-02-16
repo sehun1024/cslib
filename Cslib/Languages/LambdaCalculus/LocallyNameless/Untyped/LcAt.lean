@@ -44,29 +44,17 @@ def depth : Term Var → ℕ
 | abs t => depth t + 1
 
 @[elab_as_elim]
-protected lemma ind_on_depth (P : Term Var → Prop)
-(h_bvar : ∀ i, P (bvar i))
-(h_fvar : ∀ x, P (fvar x))
-(h_app : ∀ M N, P M → P N → P (app M N))
-(h_abs : ∀ M, P M → (∀ N, N.depth ≤ M.depth → P N) → P M.abs)
-: ∀ M, P M := by
-  have h : ∀ (d: ℕ) (M:Term Var), M.depth ≤ d → P M := by
-    intros d;induction d
-    case zero =>
-      intros M;induction M <;>grind
-    case succ m h' =>
-      intros M p;induction M with
-      | abs M' q =>
-        apply h_abs M'
-        · grind
-        · intros N h2
-          have h3: N.depth ≤ m := by grind
-          exact h' N h3
-      | app x y q r =>
-        simp only [depth, sup_le_iff] at p
-        exact h_app _ _ (q p.1) (r p.2)
-      | _ => grind
-  exact (fun M ↦ h (depth M) M (by constructor))
+protected lemma ind_on_depth (P : Term Var → Prop) (bvar : ∀ i, P (bvar i)) (fvar : ∀ x, P (fvar x))
+  (app : ∀ M N, P M → P N → P (app M N)) (abs : ∀ M, P M → (∀ N, N.depth ≤ M.depth → P N) → P M.abs)
+  (M : Term Var) : P M := by
+  have h {d : ℕ} {M : Term Var} (p : M.depth ≤ d) : P M := by
+    induction d generalizing M with
+    | zero => induction M <;> grind
+    | succ =>
+      induction M with
+      | abs M' => apply abs M' <;> grind
+      | _ => grind [sup_le_iff]
+  exact h M.depth.le_refl
 
 /-- The depth of the lambda expression doesn't change by opening at i-th bound variable
  for some free variable. -/
@@ -92,7 +80,7 @@ theorem lcAt_open_fvar_iff_lcAt (M : Term Var) (x : Var) :
 /-- M is LcAt 0 if and only if M is locallly closed. -/
 theorem lcAt_iff_LC (M : Term Var) [HasFresh Var] : LcAt 0 M ↔ M.LC := by
 induction M using LambdaCalculus.LocallyNameless.Untyped.Term.ind_on_depth with
-  | h_abs =>
+  | abs =>
     constructor
     · grind [LC.abs ∅]
     · intros h2
