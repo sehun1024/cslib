@@ -77,13 +77,13 @@ theorem lcAt_open_fvar_iff_lcAt (M : Term Var) (x : Var) : LcAt 0 (M ^ fvar x) �
 
 /-- `M` is `LcAt 0` if and only if `M` is locally closed. -/
 theorem lcAt_iff_LC (M : Term Var) [HasFresh Var] : LcAt 0 M ↔ M.LC := by
-induction M using LambdaCalculus.LocallyNameless.Untyped.Term.ind_on_depth with
-  | abs =>
-    constructor
-    · grind [LC.abs ∅]
-    · intros h2
-      rcases h2 with ⟨⟩|⟨L,_,_⟩
-      grind [fresh_exists L]
-  | _ => grind [cases LC]
+  induction M using LambdaCalculus.LocallyNameless.Untyped.Term.ind_on_depth with
+    | abs =>
+      constructor
+      · grind [LC.abs ∅]
+      · intros h2
+        rcases h2 with ⟨⟩|⟨L,_,_⟩
+        grind [fresh_exists L]
+    | _ => grind [cases LC]
 
 end Cslib.LambdaCalculus.LocallyNameless.Untyped.Term
