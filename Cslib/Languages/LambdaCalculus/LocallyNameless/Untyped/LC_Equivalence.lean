@@ -34,10 +34,10 @@ We can define M is a locally closed term if and only if
 -/
 @[simp, scoped grind =]
 def lcAt (k : ℕ) : Term Var → Prop
-| bvar i => i<k
+| bvar i => i < k
 | fvar _ => True
 | app t₁ t₂ => lcAt k t₁ ∧ lcAt k t₂
-| abs t => lcAt (k+1) t
+| abs t => lcAt (k + 1) t
 
 /-- depth counts the maximum number of the lambdas that are enclosing variables. -/
 @[simp, scoped grind =]
@@ -45,7 +45,7 @@ def depth : Term Var → ℕ
 | bvar _ => 0
 | fvar _ => 0
 | app t₁ t₂ => max (depth t₁) (depth t₂)
-| abs t => depth t +1
+| abs t => depth t + 1
 
 @[elab_as_elim]
 protected lemma ind_on_depth (P : Term Var → Prop)
@@ -86,7 +86,7 @@ theorem depth_open_fvar_eq_depth (M : Term Var) (x : Var) :
 /-- Opening for some free variable at i-th bound variable, increases the lcAt by 1. -/
 @[simp, scoped grind .]
 theorem lcAt_openRec_fvar_iff_lcAt (M : Term Var) (x : Var) (i : ℕ) :
-  lcAt i (M⟦i ↝ fvar x⟧) ↔ lcAt (i+1) M := by
+    lcAt i (M⟦i ↝ fvar x⟧) ↔ lcAt (i+1) M := by
   induction M generalizing i <;> grind
 
 /-- Opening for some free variable is locally closed if and only if M is lcAt 1. -/
