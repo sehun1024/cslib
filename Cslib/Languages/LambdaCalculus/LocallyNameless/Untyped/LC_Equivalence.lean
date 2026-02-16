@@ -72,7 +72,7 @@ protected lemma ind_on_depth (P : Term Var → Prop)
  for some free variable. -/
  @[simp, scoped grind .]
 lemma depth_openRec_fvar_eq_depth (M : Term Var) (x : Var) (i : ℕ) :
-  (M⟦i ↝ fvar x⟧).depth = M.depth := by
+    (M⟦i ↝ fvar x⟧).depth = M.depth := by
   induction M generalizing i <;> grind
 
 /-- The depth of the lambda expression doesn't change by opening for some free variable. -/
